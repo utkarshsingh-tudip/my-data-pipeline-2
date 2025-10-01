@@ -1,0 +1,27 @@
+name: Deploy to Dev
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Install Databricks CLI
+      run: |
+        pip install databricks-bundle-cli databricks-cli
+
+    - name: Deploy to Dev
+      run: |
+        databricks bundle deploy \
+          --host ${{ secrets.DATABRICKS_DEV_HOST }} \
+          --token ${{ secrets.DATABRICKS_DEV_TOKEN }} \
+          --var "warehouse_id=${{ secrets.DATABRICKS_DEV_WAREHOUSE_ID }}" \
+          --var "catalog=analytics_dev" \
+          --force-lock
