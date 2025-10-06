@@ -23,11 +23,11 @@ jobs:
         databricks --version
 
     - name: Deploy to Dev
+      env:
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_DEV_HOST }}
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_DEV_TOKEN }}
       run: |
-        export PATH="$HOME/.local/bin:$PATH"
-        databricks bundle deploy \
-          --host ${{ secrets.DATABRICKS_DEV_HOST }} \
-          --token ${{ secrets.DATABRICKS_DEV_TOKEN }} \
+        databricks bundle deploy -t dev \
           --var "warehouse_id=${{ secrets.DATABRICKS_DEV_WAREHOUSE_ID }}" \
           --var "catalog=analytics_dev" \
           --force-lock
