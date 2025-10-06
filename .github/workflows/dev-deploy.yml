@@ -13,12 +13,14 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Install latest Databricks CLI
+    - name: Install Databricks CLI
       run: |
-        pip install --user -U databricks
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-        export PATH="$HOME/.local/bin:$PATH"
-        databricks version
+        curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+        echo "$HOME/.databricks/bin" >> $GITHUB_PATH
+
+    - name: Verify Databricks CLI
+      run: |
+        databricks --version
 
     - name: Deploy to Dev
       run: |
