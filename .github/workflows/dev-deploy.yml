@@ -13,9 +13,9 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Install Databricks CLI
+    - name: Install latest Databricks CLI
       run: |
-        pip install databricks-bundle-cli databricks-cli
+          pip install -U databricks-cli
 
     - name: Deploy to Dev
       run: |
