@@ -15,7 +15,11 @@ jobs:
 
     - name: Install latest Databricks CLI
       run: |
-          pip install -U databricks-cli
+          pip install -U databricks
+          
+    - name: Verify CLI version
+      run: |
+          databricks version
 
     - name: Deploy to Dev
       run: |
