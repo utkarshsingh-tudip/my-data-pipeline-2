@@ -9,7 +9,23 @@ variables:
   catalog:
     description: "Catalog name for this deployment"
     default: "analytics_dev"
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: ${env.DATABRICKS_HOST}
+    variables:
+      warehouse_id: ${var.warehouse_id}
+      catalog: analytics_dev
 
+  prod:
+    mode: production
+    workspace:
+      host: ${env.DATABRICKS_PROD_HOST}
+    variables:
+      warehouse_id: ${var.warehouse_id}
+      catalog: analytics_prod
 # Databricks workspace config
 workspace:
   # Leave these empty — CLI will use env vars from GitHub Action
