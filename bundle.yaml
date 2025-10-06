@@ -1,6 +1,14 @@
 bundle:
   name: bronze-silver-gold-pipeline
 
+variables:
+  warehouse_id:
+    description: "ID of the Databricks warehouse"
+    default: ""
+  catalog:
+    description: "Target Unity Catalog schema"
+    default: ""
+
 targets:
   dev:
     mode: development
