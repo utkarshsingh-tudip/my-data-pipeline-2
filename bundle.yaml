@@ -31,9 +31,7 @@ targets:
       warehouse_id: ${var.warehouse_id}
       catalog: analytics_prod
 
-# Workspace section (no host/token here)
 workspace:
-  # Leave host and token out completely
   root_path: "/Workspace/Users/utkarshs8028@gmail.com/.bundle/${bundle.name}/${bundle.target}"
 
 resources:
