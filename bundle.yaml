@@ -17,7 +17,7 @@ targets:
     default: true
     # Do NOT interpolate environment variables here
     workspace:
-      root_path: "/Workspace/Users/utkarshs8028@gmail.com/.bundle/${bundle.name}/dev"
+      root_path: "/Workspace/Users/utkarsh.singh.met20@itbhu.ac.in/.bundle/${bundle.name}/dev"
     variables:
       warehouse_id: ${var.warehouse_id}
       catalog: analytics_dev
@@ -25,13 +25,13 @@ targets:
   prod:
     mode: production
     workspace:
-      root_path: "/Workspace/Users/utkarshs8028@gmail.com/.bundle/${bundle.name}/prod"
+      root_path: "/Workspace/Users/utkarsh.singh.met20@itbhu.ac.in/.bundle/${bundle.name}/prod"
     variables:
       warehouse_id: ${var.warehouse_id}
       catalog: analytics_prod
 
 workspace:
-  root_path: "/Workspace/Users/utkarshs8028@gmail.com/.bundle/${bundle.name}/${bundle.target}"
+  root_path: "/Workspace/Users/utkarsh.singh.met20@itbhu.ac.in/.bundle/${bundle.name}/${bundle.target}"
 
 resources:
   jobs:
