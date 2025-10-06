@@ -15,15 +15,14 @@ jobs:
 
     - name: Install latest Databricks CLI
       run: |
-        pip install -U databricks
+        pip install --user -U databricks
         echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-    - name: Verify CLI version
-      run: |
-          databricks version
+        export PATH="$HOME/.local/bin:$PATH"
+        databricks version
 
     - name: Deploy to Dev
       run: |
+        export PATH="$HOME/.local/bin:$PATH"
         databricks bundle deploy \
           --host ${{ secrets.DATABRICKS_DEV_HOST }} \
           --token ${{ secrets.DATABRICKS_DEV_TOKEN }} \
