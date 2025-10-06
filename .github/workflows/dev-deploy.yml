@@ -15,8 +15,9 @@ jobs:
 
     - name: Install latest Databricks CLI
       run: |
-          pip install -U databricks
-          
+        pip install -U databricks
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
     - name: Verify CLI version
       run: |
           databricks version
