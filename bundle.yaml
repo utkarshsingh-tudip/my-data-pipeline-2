@@ -1,7 +1,7 @@
 bundle:
   name: bronze-silver-gold-pipeline
 
-# Define variables for environment-specific overrides
+# Define variables used for warehouse and catalog
 variables:
   warehouse_id:
     description: "Databricks SQL warehouse ID"
@@ -9,12 +9,16 @@ variables:
   catalog:
     description: "Catalog name for this deployment"
     default: "analytics_dev"
+
+# Targets (dev and prod)
 targets:
   dev:
     mode: development
     default: true
+    # Do NOT interpolate environment variables here
+    # They are picked up automatically from environment at runtime
     workspace:
-      host: ${env.DATABRICKS_HOST}
+      root_path: "/Workspace/Users/utkarshs8028@gmail.com/.bundle/${bundle.name}/dev"
     variables:
       warehouse_id: ${var.warehouse_id}
       catalog: analytics_dev
@@ -22,15 +26,14 @@ targets:
   prod:
     mode: production
     workspace:
-      host: ${env.DATABRICKS_PROD_HOST}
+      root_path: "/Workspace/Users/utkarshs8028@gmail.com/.bundle/${bundle.name}/prod"
     variables:
       warehouse_id: ${var.warehouse_id}
       catalog: analytics_prod
-# Databricks workspace config
+
+# Workspace section (no host/token here)
 workspace:
-  # Leave these empty — CLI will use env vars from GitHub Action
-  host: ""        # DATABRICKS_HOST from secrets
-  token: ""       # DATABRICKS_TOKEN from secrets
+  # Leave host and token out completely
   root_path: "/Workspace/Users/utkarshs8028@gmail.com/.bundle/${bundle.name}/${bundle.target}"
 
 resources:
