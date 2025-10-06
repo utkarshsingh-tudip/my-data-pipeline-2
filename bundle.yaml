@@ -16,7 +16,6 @@ targets:
     mode: development
     default: true
     # Do NOT interpolate environment variables here
-    # They are picked up automatically from environment at runtime
     workspace:
       root_path: "/Workspace/Users/utkarshs8028@gmail.com/.bundle/${bundle.name}/dev"
     variables:
