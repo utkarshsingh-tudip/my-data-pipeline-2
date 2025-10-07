@@ -61,15 +61,21 @@ resources:
             - task_key: init_catalog
           notebook_task:
             notebook_path: notebooks/bronze_ingestion.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
 
         - task_key: silver_transform
           depends_on:
             - task_key: bronze_ingestion
           notebook_task:
             notebook_path: notebooks/silver_transform.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
 
         - task_key: gold_aggregate
           depends_on:
             - task_key: silver_transform
           notebook_task:
             notebook_path: notebooks/gold_aggregate.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
