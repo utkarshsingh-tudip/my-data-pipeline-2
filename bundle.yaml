@@ -44,11 +44,17 @@ resources:
           unit: DAYS
 
       tasks:
+        # - task_key: init_catalog
+        #   sql_task:
+        #     file:
+        #       path: sql/init_catalog.sql
+        #     warehouse_id: ${var.warehouse_id}
         - task_key: init_catalog
-          sql_task:
-            file:
-              path: sql/init_catalog.sql
-            warehouse_id: ${var.warehouse_id}
+          notebook_task:
+            notebook_path: notebooks/init_catalog.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
+          warehouse_id: ${var.warehouse_id}
 
         - task_key: bronze_ingestion
           depends_on:
