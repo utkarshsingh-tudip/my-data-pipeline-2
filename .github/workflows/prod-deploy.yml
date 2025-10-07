@@ -1,7 +1,9 @@
 name: Deploy to Prod
 
 on:
-  workflow_dispatch:   # Manual trigger only
+  push:
+    branches:
+      - prod
 
 jobs:
   deploy:
@@ -13,13 +15,19 @@ jobs:
 
     - name: Install Databricks CLI
       run: |
-        pip install databricks-bundle-cli databricks-cli
+        curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+        echo "$HOME/.databricks/bin" >> $GITHUB_PATH
+
+    - name: Verify Databricks CLI
+      run: |
+        databricks --version
 
     - name: Deploy to Prod
+      env:
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_PROD_HOST }}  # Fixed: proper spacing
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_PROD_TOKEN }}
       run: |
-        databricks bundle deploy \
-          --host ${{ secrets.DATABRICKS_PROD_HOST }} \
-          --token ${{ secrets.DATABRICKS_PROD_TOKEN }} \
+        databricks bundle deploy -t prod \
           --var "warehouse_id=${{ secrets.DATABRICKS_PROD_WAREHOUSE_ID }}" \
           --var "catalog=analytics_prod" \
           --force-lock
